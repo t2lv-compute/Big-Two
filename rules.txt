@@ -1,0 +1,23 @@
+Big Two (also known as deuces, capsa, pusoy dos, dai di and various other names) is a card game of Cantonese origin. The game is popular in East Asia and in Southeast Asia, especially throughout mainland China, Hong Kong, Vietnam, Macau, Taiwan, Indonesia, the Philippines, Malaysia and Singapore. It is played both casually and as a gambling game. This version is played with four players, three of which are computers. The objective of the game is to be the first to play off all of one's cards.
+
+The entire deck is dealt equally to all players. 
+
+At the beginning of each game, the player with the 3 of Diamond starts by playing it singly or as part of a combination. Play proceeds; each player must play a higher card or combination than the one before, with the same number of cards. Players may also pass, declaring that they do not want to play, does not have high enough cards, or cannot form a combination.
+
+When all but one of the players have passed in succession, the round is over. A new round is started with all players, initiated by the last player to play. He initiates by playing a single card or a combination.
+
+The game ends when one player runs out of cards. This player is the winner.
+
+The following are the different types of combinations:
+
+  -Singles: Any card from the deck, ordered by rank with suit being the tie-breaker.
+  -Pairs: Any two cards of matching rank, ordered as with singular cards by the card of the higher suit.
+  -Triples: Three equal ranked cards.
+  -Five-card hands: There are five different valid five-card hands, ranking from low to high as follows:
+    -Straight: Any 5 cards in a sequence, but not all of the same suit. Rank is determined by the value of the highest card, with the suit used only as a tie-breaker.
+    -Flush: Any 5 cards of the same suit, but not in a sequence. Rank is determined by the value of the highest cards. Suit is used to break ties.
+    -Full house: a three-of-a-kind and a pair. Rank is determined by the value of the triple.
+    -Four-of-a-kind + One card: Any set of 4 cards of the same rank, plus any 5th card. Rank is determined by the value of the 4 card set.
+    -Straight flush: Five cards in sequence in the same suit. Ranked the same as straights, suit being a tie-breaker.
+
+All information was retrived from: https://en.wikipedia.org/wiki/Big_two
