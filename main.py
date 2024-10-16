@@ -417,10 +417,11 @@ class Game:
     self.consecutive_passes = 0
     self.current_play = None
   def create_widgets(self):
+    self.canvas = Canvas(self.root,height=500, width=375)
     self.rules_button = Button(self.root, text="Rules", command=show_rules)
     self.username_label = ""
     for i in self.players:
-      self.username_label += str(i) + ", "
+      self.username_label += str(i.name) + ", "
     self.username_label = Label(self.root, text=self.username_label)
     self.last_played_card = Label(self.root)
     self.choose_play = ttk.Combobox(self.root)
@@ -429,9 +430,10 @@ class Game:
     # You had written ^^^pass but that's a keyword and cannot be asigned
   def game(self):
     self.create_widgets()
-    self.rules_button.pack(side="left")
-    self.username_label.pack(side="left")
-    self.exit.pack()
+    self.rules_button.pack(side="left",anchor="nw")
+    self.username_label.pack(side="left",anchor="nw")
+    self.exit.pack(side="right",anchor="ne")
+    self.canvas.pack(side="center")
     self.root.mainloop()
     username_label = ""
     for i in self.players:
