@@ -76,7 +76,7 @@ def show_rules():
   window = Tk()
   window.minsize(width=610, height=400)
   window.title("Rules")
-  exit_button = Button(window, text="Done", command=exit)
+  exit_button = Button(window, text="Done", command=exit, font=("Comic Sans MS", 18, "bold"))
   canvas = Canvas(window)
   canvas.pack(side="left", fill="both", expand=True)
   scrollbar = ttk.Scrollbar(window, orient="vertical", command=canvas.yview)
@@ -91,12 +91,12 @@ def show_rules():
   with open('rules.txt', 'r') as f:
     label = Label(frame,
                   text=f.read(),
-                  font="Helvetica",
                   justify='left',
-                  wraplength=600)
-  title.pack()
+                  wraplength=600, 
+                  font=("Comic Sans MS", 12, "bold"))
+  title.pack(side="left",anchor="nw")
+  #exit_button.pack(side="right",anchor="ne")
   label.pack()
-  exit_button.pack()
   window.mainloop()
 
 
@@ -417,15 +417,18 @@ class Game:
     self.consecutive_passes = 0
     self.current_play = None
   def create_widgets(self):
+    self.title_widget = Label(self.root,text="Big Two", font=("Comic Sans MS", 18, "bold"))
     self.canvas = Canvas(self.root,height=500, width=375)
-    self.rules_button = Button(self.root, text="Rules", command=show_rules)
+    self.rules_button = Button(self.root, text="Rules", command=show_rules,font=("Comic Sans MS", 14, "bold"))
     self.username_label = ""
     for i in self.players:
       self.username_label += str(i.name) + ", "
-    self.username_label = Label(self.root, text=self.username_label)
+    self.username_label = self.username_label[:-2]
+    self.username_label = "Players: " + self.username_label
+    self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 18, "bold"))
     self.last_played_card = Label(self.root)
     self.choose_play = ttk.Combobox(self.root)
-    self.exit = Button(self.root,text="Exit",command = exit)
+    self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 18, "bold"))
     self.player_hand=None 
     # You had written ^^^pass but that's a keyword and cannot be asigned
   def game(self):
@@ -433,7 +436,7 @@ class Game:
     self.rules_button.pack(side="left",anchor="nw")
     self.username_label.pack(side="left",anchor="nw")
     self.exit.pack(side="right",anchor="ne")
-    self.canvas.pack(side="center")
+    self.canvas.pack(side="top",anchor="center")
     self.root.mainloop()
     username_label = ""
     for i in self.players:
@@ -477,7 +480,7 @@ class Game:
         self.next_player -= 3
     self.root.destroy()
 
-messagebox.showerror(message="Wha?")
+#messagebox.showerror(message="Wha?")
 while True:
   player_info = {"Ming Fu": [1, []], "Jiang Kun": [2, []], "Fu Ai": [3, []]}
   print(player_info)
