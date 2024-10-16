@@ -76,6 +76,7 @@ def show_rules():
   window = Tk()
   window.minsize(width=610, height=400)
   window.title("Rules")
+  exit_button = Button(window, text="Done", command=exit)
   canvas = Canvas(window)
   canvas.pack(side="left", fill="both", expand=True)
   scrollbar = ttk.Scrollbar(window, orient="vertical", command=canvas.yview)
@@ -95,6 +96,7 @@ def show_rules():
                   wraplength=600)
   title.pack()
   label.pack()
+  exit_button.pack()
   window.mainloop()
 
 
