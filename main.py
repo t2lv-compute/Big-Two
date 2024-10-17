@@ -120,7 +120,7 @@ def intro():
       message="Have you played before? If so, press yes. Otherwise, press no."
   ):
     show_rules()
-  time.sleep(1)
+  #time.sleep(1)
   username = ""
   while username == "":
     username = simpledialog.askstring("Username", "Enter a username:")
@@ -407,8 +407,10 @@ class Game:
     self.current_play = None
     self.root = Tk()
     self.root.title("Big Two: A Cantonese Card Game")
-    self.root.geometry("700x400")
-    self.root.minsize(700, 400)
+    self.root.geometry("700x600")
+    self.root.minsize(700, 600)
+    self.root.configure(bg="dark red")
+    self.possible_plays = []
   def restart(self, deck, players):
     self.deck = deck
     self.players = players
@@ -418,7 +420,9 @@ class Game:
     self.current_play = None
   def create_widgets(self):
     self.title_widget = Label(self.root,text="Big Two", font=("Comic Sans MS", 18, "bold"))
-    self.canvas = Canvas(self.root,height=500, width=375)
+    self.canvas = Canvas(self.root,height=700, width=690,bg="#069FA0")
+    self.card_back_image = PhotoImage(file="/Users/davidlam/Code/Big-Two/card_back.png")
+    self.card_back_image = self.card_back_image.subsample(6,6)
     self.rules_button = Button(self.root, text="Rules", command=show_rules,font=("Comic Sans MS", 14, "bold"))
     self.username_label = ""
     for i in self.players:
@@ -427,28 +431,28 @@ class Game:
     self.username_label = "Players: " + self.username_label
     self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 14, "bold"))
     self.last_played_card = Label(self.root)
-    self.choose_play = ttk.Combobox(self.root)
+    self.choose_play = ttk.Combobox(self.root,values=self.possible_plays)
     self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 14, "bold"))
     self.player_hand=None 
     # You had written ^^^pass but that's a keyword and cannot be asigned
   def game(self):
     self.create_widgets()
-    self.rules_button.pack(side="left",anchor="nw")
-    self.username_label.pack(side="left",anchor="nw")
-    self.exit.pack(side="right",anchor="ne")
-    self.canvas.pack(side="top",anchor="center")
+    self.rules_button.grid(column = 0,row=0)
+    self.username_label.grid(column = 1,row=0)
+    self.exit.grid(column = 2,row=0)
+    self.canvas.grid(column = 0,row=1,columnspan=3)
+    for i in range(0,13):
+      self.canvas.create_image(200+20*i,10,anchor=N,image=self.card_back_image)
+    self.choose_play.grid(column = 1,row=2,columnspan=1)
     self.root.mainloop()
     username_label = ""
-    for i in self.players:
-      username_label += str(i) + ", "
-    username_label = Label(self.root, text=username_label)
-    username_label.grid(row=0, column=1)
     self.dealed_deck = deal(self.deck, 4)
     for i in self.players:
       i.hand = self.dealed_deck[self.players.index(i)]
       for card in i.hand:
         pass
     while True:
+      self.root.update_idletasks()
       #get play
       self.new_play = self.players[self.next_player].play_card(
           self.current_play, self.last_card_player)
