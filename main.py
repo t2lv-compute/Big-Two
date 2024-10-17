@@ -93,8 +93,8 @@ def show_rules():
                   text=f.read(),
                   justify='left',
                   wraplength=600, 
-                  font=("Comic Sans MS", 12, "bold"))
-  title.pack(side="left",anchor="nw")
+                  font=("Comic Sans MS", 14, "bold"))
+  title.pack()
   #exit_button.pack(side="right",anchor="ne")
   label.pack()
   window.mainloop()
@@ -425,10 +425,10 @@ class Game:
       self.username_label += str(i.name) + ", "
     self.username_label = self.username_label[:-2]
     self.username_label = "Players: " + self.username_label
-    self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 18, "bold"))
+    self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 14, "bold"))
     self.last_played_card = Label(self.root)
     self.choose_play = ttk.Combobox(self.root)
-    self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 18, "bold"))
+    self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 14, "bold"))
     self.player_hand=None 
     # You had written ^^^pass but that's a keyword and cannot be asigned
   def game(self):
