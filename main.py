@@ -3,6 +3,7 @@ import random
 import time
 from tkinter import *
 from tkinter import messagebox, simpledialog, ttk
+from tktooltip import ToolTip
 
 
 #define the player class
@@ -407,8 +408,8 @@ class Game:
     self.current_play = None
     self.root = Tk()
     self.root.title("Big Two: A Cantonese Card Game")
-    self.root.geometry("700x600")
-    self.root.minsize(700, 600)
+    self.root.geometry("700x700")
+    self.root.minsize(700, 700)
     self.root.configure(bg="dark red")
     self.possible_plays = []
   def restart(self, deck, players):
@@ -419,8 +420,10 @@ class Game:
     self.consecutive_passes = 0
     self.current_play = None
   def create_widgets(self):
+    self.select_play = Button(self.root,text="Play",command=None,font=("Comic Sans MS", 14, "bold"))
+    self.lets_pass = Button(self.root,text="Pass",command=None,font=("Comic Sans MS", 14, "bold"))
     self.title_widget = Label(self.root,text="Big Two", font=("Comic Sans MS", 18, "bold"))
-    self.canvas = Canvas(self.root,height=700, width=690,bg="#069FA0")
+    self.canvas = Canvas(self.root,height=620, width=690,bg="#069FA0")
     self.card_back_image = PhotoImage(file="/Users/davidlam/Code/Big-Two/card_back.png")
     self.card_back_image = self.card_back_image.subsample(6,6)
     self.rules_button = Button(self.root, text="Rules", command=show_rules,font=("Comic Sans MS", 14, "bold"))
@@ -429,7 +432,7 @@ class Game:
       self.username_label += str(i.name) + ", "
     self.username_label = self.username_label[:-2]
     self.username_label = "Players: " + self.username_label
-    self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 14, "bold"))
+    self.username_label = Label(self.root, text=self.username_label, font=("Comic Sans MS", 14, "bold"),bg="#FFFFFF",fg="#000000")
     self.last_played_card = Label(self.root)
     self.choose_play = ttk.Combobox(self.root,values=self.possible_plays)
     self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 14, "bold"))
@@ -441,9 +444,20 @@ class Game:
     self.username_label.grid(column = 1,row=0)
     self.exit.grid(column = 2,row=0)
     self.canvas.grid(column = 0,row=1,columnspan=3)
+    ToolTip(self.canvas, msg="Play Area",delay = 0.5,follow = True,
+        parent_kwargs={"bg": "black", "padx": 3, "pady": 3},
+        fg="#ffffff", bg="#1c1c1c", padx=2, pady=2)
+    self.card_hands = {"Top_Player":[],"Left_Player":[],"Right_Player":[]}
     for i in range(0,13):
-      self.canvas.create_image(200+20*i,10,anchor=N,image=self.card_back_image)
-    self.choose_play.grid(column = 1,row=2,columnspan=1)
+      self.card_hands["Top_Player"].append(self.canvas.create_image(200+20*i,10,anchor=N,image=self.card_back_image))
+    for i in range(0,13):
+      self.card_hands["Left_Player"].append(self.canvas.create_image(80,110+22*i,anchor=N,image=self.card_back_image))
+    for i in range(0,13):
+      self.card_hands["Right_Player"].append(self.canvas.create_image(610,110+22*i,anchor=N,image=self.card_back_image))
+    print(self.card_hands)
+    self.choose_play.grid(column = 1,row=2,columnspan=1,pady=5)
+    self.select_play.grid(column=2,row=2,columnspan=1)
+    self.lets_pass.grid(column=0,row=2,columnspan=1)
     self.root.mainloop()
     username_label = ""
     self.dealed_deck = deal(self.deck, 4)
