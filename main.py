@@ -4,7 +4,7 @@ import time
 from tkinter import *
 from tkinter import messagebox, simpledialog, ttk
 from tktooltip import ToolTip
-
+import pyttsx3
 
 #define the player class
 class Player:
@@ -112,7 +112,9 @@ def intro():
   # input("Are you ready to play?")
   # return username
   # tkinter
-
+  #engine = pyttsx3.init()
+  #engine.say("Welcome to Big Two, a Cantonese Card Game. Let's Play!")
+  #engine.runAndWait()
   messagebox.showinfo(title="Welcome",
                       message="Welcome to Big Two, a Cantonese Card Game.")
   print("Welcome to Big Two, a Cantonese Card Game.")
