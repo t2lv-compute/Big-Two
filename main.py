@@ -4,7 +4,7 @@ import time
 from tkinter import *
 from tkinter import messagebox, simpledialog, ttk
 from tktooltip import ToolTip
-import pyttsx3
+#import pyttsx3
 
 #define the player class
 class Player:
@@ -127,7 +127,9 @@ def intro():
   username = ""
   while username == "":
     username = simpledialog.askstring("Username", "Enter a username:")
-  messagebox.askokcancel("Game Time", f"Are you ready to play, {username}?")
+  if not messagebox.askyesno("Game Time", f"Are you ready to play, {username}?"):
+    messagebox.showinfo("Bye!")
+    exit()
   return username
 
 
@@ -410,6 +412,7 @@ class Game:
     self.current_play = None
     self.root = Tk()
     self.root.title("Big Two: A Cantonese Card Game")
+    self.root.attributes("-topmost", True)
     self.root.geometry("700x700")
     self.root.minsize(700, 700)
     self.root.configure(bg="dark red")
@@ -422,11 +425,11 @@ class Game:
     self.consecutive_passes = 0
     self.current_play = None
   def create_widgets(self):
-    self.select_play = Button(self.root,text="Play",command=None,font=("Comic Sans MS", 14, "bold"))
-    self.lets_pass = Button(self.root,text="Pass",command=None,font=("Comic Sans MS", 14, "bold"))
+    self.select_play = Button(self.root,text="Play",command=print("hi"),font=("Comic Sans MS", 14, "bold")) # type: ignore
+    self.lets_pass = Button(self.root,text="Pass",command=print("hi"),font=("Comic Sans MS", 14, "bold")) # type: ignore
     self.title_widget = Label(self.root,text="Big Two", font=("Comic Sans MS", 18, "bold"))
     self.canvas = Canvas(self.root,height=620, width=690,bg="#069FA0")
-    self.card_back_image = PhotoImage(file="/Users/davidlam/Code/Big-Two/card_back.png")
+    self.card_back_image = PhotoImage(file="/home/tobylam/Big-Two/card_back.png")
     self.card_back_image = self.card_back_image.subsample(6,6)
     self.rules_button = Button(self.root, text="Rules", command=show_rules,font=("Comic Sans MS", 14, "bold"))
     self.username_label = ""
@@ -438,10 +441,7 @@ class Game:
     self.last_played_card = Label(self.root)
     self.choose_play = ttk.Combobox(self.root,values=self.possible_plays)
     self.exit = Button(self.root,text="Exit",command = exit, font=("Comic Sans MS", 14, "bold"))
-    self.player_hand=None 
-    # You had written ^^^pass but that's a keyword and cannot be asigned
-  def game(self):
-    self.create_widgets()
+    #self.player_hand=None
     self.rules_button.grid(column = 0,row=0)
     self.username_label.grid(column = 1,row=0)
     self.exit.grid(column = 2,row=0)
@@ -460,14 +460,32 @@ class Game:
     self.choose_play.grid(column = 1,row=2,columnspan=1,pady=5)
     self.select_play.grid(column=2,row=2,columnspan=1)
     self.lets_pass.grid(column=0,row=2,columnspan=1)
-    self.root.mainloop()
-    username_label = ""
+    print("widgets packed and gridded")
+    self.root.mainloop() 
+    #self.root.after(1000) # type: ignore
+    print("root mainloop")
+    # You had written ^^^pass but that's a keyword and cannot be asigned
+  def game(self):
+    self.create_widgets()
+    print("widgets created")
     self.dealed_deck = deal(self.deck, 4)
     for i in self.players:
+      print(i)
       i.hand = self.dealed_deck[self.players.index(i)]
-      for card in i.hand:
-        pass
+      print(self.dealed_deck[self.players.index(i)])
+      print(i.hand)
+      if i.strategy == "player":
+        for card in i.hand:
+          filename = ""
+          filename = card+filename
+          filename = filename.split()
+          filename = "_".join(filename)
+          card_image = PhotoImage(file=filename)
+          self.canvas.create_image(0,0,image=card_image)
+    self.last_card_player = ["03 of Diamonds"]
     while True:
+      print("game running")
+      self.root.after(500) # type: ignore
       self.root.update_idletasks()
       #get play
       self.new_play = self.players[self.next_player].play_card(
@@ -514,6 +532,7 @@ while True:
   print(players)
   game = Game(create_shuffle_deck(), players=players)
   game.game()
+  print("hello")
   if not messagebox.askyesno("Replay", "Play again?"):
     break
   else:
